@@ -3,8 +3,10 @@ export interface Skills {
     strength: number;
     endurance: number;
     initiative: number;
-    learningCapacity: number;
     dodge: number;
+    learningCapacity: number;
     luck: number;
     discipline: number;
+    weaponSkill?: number;
+    shield?: number;
 }

@@ -17,7 +17,7 @@ import { SelectRaceComponent } from './components/select-race/select-race.compon
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
