@@ -1,16 +1,35 @@
-<table>
-    <thead>
-        <tr>
-            <th *ngFor="let header of headers" class="p-5 border">
-                {{header}}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                
-            </td>
-        </tr>
-    </tbody>
-</table>
+<form [formGroup]="tableForm">
+    <table class="m-auto">
+        <thead>
+            <tr>
+                <th *ngFor="let header of headers" class="p-1 border font-sans w-16 bg-white">
+                    {{header}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container formArrayName="Rows">
+                <tr *ngFor="let level of tableFormArr.controls; let i = index; let l = last" 
+                [formGroupName]="i"
+                class="p-1 border bg-white">
+                    <td *ngFor="let attribute of Object.keys(level.value)" class="border">
+                    
+                        <input *ngIf="attribute === 'level' || attribute === 'placedPoints'" 
+                        class="form-control w-28 px-1 font-medium" 
+                        [id]="attribute" 
+                        [formControlName]="attribute"
+                        readonly>
+                        
+                        <input *ngIf="attribute !== 'level' && attribute !== 'placedPoints'" 
+                        type="text"
+                        pattern="[0-9]"
+                        class="form-control w-28 font-light" 
+                        [id]="attribute" 
+                        [formControlName]="attribute"
+                        onlyNumber>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</form>

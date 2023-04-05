@@ -1,4 +1,4 @@
-export interface Skills {
+export interface Skill {
     stamina: number;
     strength: number;
     endurance: number;
@@ -7,6 +7,4 @@ export interface Skills {
     learningCapacity: number;
     luck: number;
     discipline: number;
-    weaponSkill?: number;
-    shield?: number;
 }

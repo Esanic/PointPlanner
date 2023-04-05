@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Race } from '../models/race';
+import { CharacterAttributes } from '../models/characterAttributes';
 import { Level } from '../models/level';
+
 
 @Injectable({
   providedIn: 'root'
@@ -64,11 +66,20 @@ export class GlobalService {
   }
   public races: Race[] = [this.human, this.elf, this.dwarf, this.orc, this.goblin, this.troll, this.undead];
 
-  public headers: string[] = ["Hälsa", "Styrka", "Uthållighet", "Initiativ", "Undvika anfall", "Inlärningsförmåga", "Tur", "Disciplin", "Vapenfärdighet", "Sköld"];
+  public headers: string[] = ["Grad", "Hälsa", "Styrka", "Uthållighet", "Initiativ", "Undvika anfall", "Inlärningsförmåga", "Tur", "Disciplin", "Vapenfärdighet", "Sköld", "Utplacerade Poäng"];
 
-  public levelData: Level[] = [
-    
-  ] 
+  // public characterTemplate: any[] = [
+  //   {level: 1, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 2, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 3, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 4, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 5, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 6, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 7, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 8, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 9, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  //   {level: 10, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
+  // ]
 
   constructor() { }
 }

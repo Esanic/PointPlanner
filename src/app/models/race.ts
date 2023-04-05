@@ -1,5 +1,6 @@
 import { CritChances } from "./crit-chances";
-import { Skills } from "./skills";
+
+import { Skill } from "./skill";
 import { WeaponSkills } from "./weapon-skills";
 
 export class Race {
@@ -7,10 +8,10 @@ export class Race {
     public baseWeight: number;
     public damageWithShield: number;
     public critChances: CritChances;
-    public skills: Skills;
+    public skills: Skill;
     public weaponSkills: WeaponSkills;
 
-    constructor(name: string, baseWeight: number, damageWithShield: number, critChances: CritChances, skills: Skills, weaponSkills: WeaponSkills){
+    constructor(name: string, baseWeight: number, damageWithShield: number, critChances: CritChances, skills: Skill, weaponSkills: WeaponSkills){
         this.name = name;
         this.baseWeight = baseWeight;
         this.damageWithShield = damageWithShield;
