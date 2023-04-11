@@ -9,6 +9,10 @@ import { GlobalService } from 'src/app/services/global.service';
 export class SelectRaceComponent {
   public races: string[] = this.global.races.map(race => race.name);
 
-  constructor(private global: GlobalService){}
+  public selected?: string;
+
+  constructor(private global: GlobalService){
+    
+  }
 
 }

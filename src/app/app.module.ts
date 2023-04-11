@@ -9,6 +9,7 @@ import { SelectRaceComponent } from './components/select-race/select-race.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlyNumberDirective } from './directives/only-number.directive';
 
+
 @NgModule({
   declarations: [
     AppComponent,

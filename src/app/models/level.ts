@@ -1,5 +1,5 @@
 export interface Level {
-    level: number,
+    level: number | string,
     stamina: number;
     strength: number;
     endurance: number;
@@ -11,5 +11,5 @@ export interface Level {
     weaponSkill?: number;
     shield?: number;
     placedPoints: number;
-    maxPlacedPoints: number;
+    maxPlacedPoints?: number;
 }

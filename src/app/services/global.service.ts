@@ -66,7 +66,7 @@ export class GlobalService {
   }
   public races: Race[] = [this.human, this.elf, this.dwarf, this.orc, this.goblin, this.troll, this.undead];
 
-  public headers: string[] = ["Grad", "Hälsa", "Styrka", "Uthållighet", "Initiativ", "Undvika anfall", "Inlärningsförmåga", "Tur", "Disciplin", "Vapenfärdighet", "Sköld", "Utplacerade Poäng"];
+  public headers: string[] = ["Grad", "Hälsa", "Styrka", "Uthållighet", "Initiativ", "UA", "VF", "Sköld", "Inlärning", "Tur", "Disciplin", "Utplacerade Poäng"];
 
   // public characterTemplate: any[] = [
   //   {level: 1, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},

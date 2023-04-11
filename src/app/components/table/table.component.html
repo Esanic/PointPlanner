@@ -1,8 +1,8 @@
 <form [formGroup]="tableForm">
-    <table class="m-auto">
+    <table class="m-auto w-1/2">
         <thead>
             <tr>
-                <th *ngFor="let header of headers" class="p-1 border font-sans w-16 bg-white">
+                <th *ngFor="let header of headers" class="border font-sans w-20 bg-white">
                     {{header}}
                 </th>
             </tr>
@@ -14,19 +14,27 @@
                 class="p-1 border bg-white">
                     <td *ngFor="let attribute of Object.keys(level.value)" class="border">
                     
+                        <!-- Level and placedPoints-->
                         <input *ngIf="attribute === 'level' || attribute === 'placedPoints'" 
-                        class="form-control w-28 px-1 font-medium" 
+                        class="w-28 px-1 font-medium" 
                         [id]="attribute" 
                         [formControlName]="attribute"
                         readonly>
                         
+                        <!-- The other attributes-->
                         <input *ngIf="attribute !== 'level' && attribute !== 'placedPoints'" 
                         type="text"
-                        pattern="[0-9]"
-                        class="form-control w-28 font-light" 
+                        class="w-28 font-light" 
                         [id]="attribute" 
                         [formControlName]="attribute"
                         onlyNumber>
+                    </td>
+                </tr>
+
+
+                <tr class="p-1 border border-t-2 border-black bg-white">
+                    <td *ngFor="let attribute of Object.values(total)" class="border px-1 font-semibold bg-white">
+                        {{attribute}}
                     </td>
                 </tr>
             </ng-container>
