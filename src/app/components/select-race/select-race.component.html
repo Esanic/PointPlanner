@@ -1,10 +1,8 @@
 <mat-form-field class="w-1/6">
     <mat-label>Välj ras</mat-label>
-    <mat-select [(value)]="selected">
+    <mat-select [formControl]="chooseRace">
         <mat-option *ngFor="let race of races" [value]="race">
             {{race}}
         </mat-option>
     </mat-select>
 </mat-form-field>
-
-{{selected}}

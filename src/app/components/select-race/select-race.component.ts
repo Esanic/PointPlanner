@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
@@ -7,12 +9,15 @@ import { GlobalService } from 'src/app/services/global.service';
   styleUrls: ['./select-race.component.css']
 })
 export class SelectRaceComponent {
+  public chooseRace = new FormControl('');
   public races: string[] = this.global.races.map(race => race.name);
 
-  public selected?: string;
 
   constructor(private global: GlobalService){
-    
+    this.chooseRace.valueChanges.subscribe(race => {
+      if(race)
+        this.global.setChosenRace(race);
+    })
   }
 
 }

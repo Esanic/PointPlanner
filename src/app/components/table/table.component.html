@@ -1,8 +1,8 @@
 <form [formGroup]="tableForm">
-    <table class="m-auto w-1/2">
+    <table class="m-auto w-2/5 border-2 border-black">
         <thead>
             <tr>
-                <th *ngFor="let header of headers" class="border font-sans w-20 bg-white">
+                <th *ngFor="let header of headers" class="border font-sans w-20 bg-white border-b-2 border-b-black first:border-r-2 first:border-r-black last:border-l-2 last:border-l-black">
                     {{header}}
                 </th>
             </tr>
@@ -12,11 +12,11 @@
                 <tr *ngFor="let level of tableFormArr.controls; let i = index; let l = last" 
                 [formGroupName]="i"
                 class="p-1 border bg-white">
-                    <td *ngFor="let attribute of Object.keys(level.value)" class="border">
+                    <td *ngFor="let attribute of Object.keys(level.value)" class="border first:border-r-2 first:border-r-black last:border-l-2 last:border-l-black">
                     
                         <!-- Level and placedPoints-->
                         <input *ngIf="attribute === 'level' || attribute === 'placedPoints'" 
-                        class="w-28 px-1 font-medium" 
+                        class="w-24 px-1 font-medium text-center" 
                         [id]="attribute" 
                         [formControlName]="attribute"
                         readonly>
@@ -24,20 +24,25 @@
                         <!-- The other attributes-->
                         <input *ngIf="attribute !== 'level' && attribute !== 'placedPoints'" 
                         type="text"
-                        class="w-28 font-light" 
+                        class="w-12 font-light" 
                         [id]="attribute" 
                         [formControlName]="attribute"
                         onlyNumber>
                     </td>
                 </tr>
-
-
-                <tr class="p-1 border border-t-2 border-black bg-white">
-                    <td *ngFor="let attribute of Object.values(total)" class="border px-1 font-semibold bg-white">
-                        {{attribute}}
-                    </td>
-                </tr>
             </ng-container>
         </tbody>
+        <tfoot>
+            <tr class="p-1 border-2 border-black bg-white text-center">
+                <td *ngFor="let attribute of Object.values(total)" class="border px-1 font-medium bg-white first:border-r-2 first:border-r-black last:border-l-2 last:border-l-black">
+                    {{attribute}}
+                </td>
+            </tr>
+            <tr class="p-1 border-2 border-black bg-white text-center">
+                <td *ngFor="let attribute of Object.values(totalWithRaceBonus)" class="border px-1 font-medium bg-white first:border-r-2 first:border-r-black last:border-l-2 last:border-l-black">
+                    {{attribute}}
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </form>

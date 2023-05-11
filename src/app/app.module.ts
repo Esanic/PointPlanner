@@ -8,6 +8,7 @@ import { TableComponent } from './components/table/table.component';
 import { SelectRaceComponent } from './components/select-race/select-race.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlyNumberDirective } from './directives/only-number.directive';
+import { SelectWeaponSkillComponent } from './components/select-weapon-skill/select-weapon-skill.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
     TableComponent,
     SelectRaceComponent,
     OnlyNumberDirective,
+    SelectWeaponSkillComponent,
   ],
   imports: [
     BrowserModule,

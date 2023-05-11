@@ -2,12 +2,22 @@ import { Injectable } from '@angular/core';
 import { Race } from '../models/race';
 import { CharacterAttributes } from '../models/characterAttributes';
 import { Level } from '../models/level';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
+  public defaultRace: Race = {
+    name: 'Default', 
+    baseWeight: 0,
+    damageWithShield: 1,
+    critChances: {baseCrit: 1, baseMaxCrit: 1, maxDamage: 1},
+    skills: {stamina: 1, strength: 1, endurance: 1, initiative: 1, dodge: 1, learningCapacity: 1, luck: 1, discipline: 1},
+    weaponSkills: {axe: 1, sword: 1, mace: 1, stave: 1, shield: 1, spear: 1, chain: 1}
+  }
+
   public human: Race = {
     name: 'Människa', 
     baseWeight: 5,
@@ -22,7 +32,7 @@ export class GlobalService {
     damageWithShield: 0.8,
     critChances: {baseCrit: 1, baseMaxCrit: 1.1, maxDamage: 1.2},
     skills: {stamina: 0.9, strength: 0.9, endurance: 1.3, initiative: 1.25, dodge: 1.55, learningCapacity: 1.2, luck: 1.1, discipline: 1},
-    weaponSkills: {axe: 1, sword: 1.15, mace: 0, stave: 1.2, shield: 1.25, spear: 1.3, chain: 1}
+    weaponSkills: {axe: 1, sword: 1.15, mace: 1, stave: 1.2, shield: 1.25, spear: 1.3, chain: 1}
   }
   public dwarf: Race = {
     name: 'Dvärg', 
@@ -65,21 +75,28 @@ export class GlobalService {
     weaponSkills: {axe: 1.05, sword: 1.05, mace: 1.05, stave: 1.05, shield: 1.05, spear: 1.05, chain: 1.05}
   }
   public races: Race[] = [this.human, this.elf, this.dwarf, this.orc, this.goblin, this.troll, this.undead];
+  
+  public weaponSkills: string[] = ["Yxa", "Svärd", "Hammare", "Stav", "Stickvapen", "Kätting"]
+  public headers: string[] = ["Grad", "KP", "SB", "UTH", "INI", "UA", "VF", "Sköld", "Inlärning", "Tur", "Disciplin", "Utplacerade Poäng"];
 
-  public headers: string[] = ["Grad", "Hälsa", "Styrka", "Uthållighet", "Initiativ", "UA", "VF", "Sköld", "Inlärning", "Tur", "Disciplin", "Utplacerade Poäng"];
-
-  // public characterTemplate: any[] = [
-  //   {level: 1, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 2, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 3, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 4, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 5, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 6, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 7, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 8, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 9, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  //   {level: 10, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, learningCapacity: 0, luck: 0, discipline: 0, weaponSkill: 0, shield: 0, placedPoints: 0},
-  // ]
+  private chosenRace: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private chosenWeaponSkill: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() { }
+
+  setChosenRace(race: string) {
+    this.chosenRace.next(race);
+  }
+
+  getChosenRace(): Observable<string> {
+    return this.chosenRace.asObservable();
+  }
+
+  setChosenWeaponSkill(skill: string){
+    this.chosenWeaponSkill.next(skill);
+  }
+
+  getChosenWeaponSkill(): Observable<string> {
+    return this.chosenWeaponSkill.asObservable();
+  }
 }
