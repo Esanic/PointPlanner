@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription, debounceTime } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { Level } from 'src/app/models/level';
 import { Race } from 'src/app/models/race';
 import { GlobalService } from 'src/app/services/global.service';
@@ -14,15 +14,15 @@ import { TableService } from 'src/app/services/table.service';
 export class TableComponent implements OnInit {
   public headers: string[] = this.global.headers;
   public character: Level[] = []
-  public desiredLevels: number = 26;
+  public desiredLevels: number = 25+1;
   public tableForm!: FormGroup;
 
   public race: Race = this.global.defaultRace;
   public weaponSkill: string = '';
   public weaponSkillNum: number = 0;
 
-  public total = {level: 'Total', stamina: "", strength: "", endurance: "", initiative: "", dodge: "", weaponSkill: "", shield: "", learningCapacity: "", luck: "", discipline: "", placedPoints: ""};
-  public totalWithRaceBonus = {level: 'Total m. rasbonus', stamina: "", strength: "", endurance: "", initiative: "", dodge: "", weaponSkill: "", shield: "", learningCapacity: "", luck: "", discipline: "", placedPoints: ""};
+  public total = {level: 'Total', stamina: "0", strength: "0", endurance: "0", initiative: "0", dodge: "0", weaponSkill: "0", shield: "0", learningCapacity: "0", luck: "0", discipline: "0", placedPoints: "0"};
+  public totalWithRaceBonus = {level: 'Total m. rasbonus', stamina: "0", strength: "0", endurance: "0", initiative: "0", dodge: "0", weaponSkill: "0", shield: "0", learningCapacity: "0", luck: "0", discipline: "0", placedPoints: "0"};
   private totals: any[] = [this.total, this.totalWithRaceBonus];
 
   Object = Object;
@@ -30,6 +30,8 @@ export class TableComponent implements OnInit {
   constructor(private global: GlobalService, private formBuilder: FormBuilder, private tableService: TableService){}
   
   ngOnInit(): void {
+    this.createForm();
+
     this.global.getChosenRace().subscribe(race => {
       this.racePicker(race);
       this.weaponSkillPicker(this.weaponSkill);
@@ -47,7 +49,6 @@ export class TableComponent implements OnInit {
     })
     
     this.addLevels();
-    this.createForm();
     this.addData();
     this.subscribeToEachLevel();
   }
@@ -75,14 +76,13 @@ export class TableComponent implements OnInit {
 
   private addData(){
     this.character.forEach((level) => {
-      this.tableFormArr.push(this.addColumn(level));
+      this.tableFormArr.push(this.addLevel(level));
     })
   }
 
   private subscribeToEachLevel(){
     this.tableFormArr.controls.forEach(control => {
       control.valueChanges.pipe(debounceTime(200)).subscribe(change => {
-        // this.tableService.setTable(this.tableFormArr);
         this.summarizeEachRow(change, control);
         this.totals.forEach(total => {
           this.summarizeEachColumn(total);
@@ -115,7 +115,7 @@ export class TableComponent implements OnInit {
       let weaponSkill: number = 0;
       let shield: number = 0;
 
-      this.total = {level: 'Total', stamina: "", strength: "", endurance: "", initiative: "", dodge: "", weaponSkill: "", shield: "", learningCapacity: "", luck: "", discipline: "", placedPoints: ""};
+      this.total = {level: 'Total', stamina: "0", strength: "0", endurance: "0", initiative: "0", dodge: "0", weaponSkill: "0", shield: "0", learningCapacity: "0", luck: "0", discipline: "0", placedPoints: ""};
       this.tableFormArr.controls.forEach(level => {
         Object.entries(level.value).forEach(attribute => {
           switch(attribute[0]){
@@ -178,12 +178,11 @@ export class TableComponent implements OnInit {
       let weaponSkill: number = 0;
       let shield: number = 0;
 
-      this.totalWithRaceBonus = {level: 'Total m. rasbonus', stamina: "", strength: "", endurance: "", initiative: "", dodge: "", weaponSkill: "", shield: "", learningCapacity: "", luck: "", discipline: "", placedPoints: ""};
+      this.totalWithRaceBonus = {level: 'Total m. rasbonus', stamina: "0", strength: "0", endurance: "0", initiative: "0", dodge: "0", weaponSkill: "0", shield: "0", learningCapacity: "0", luck: "0", discipline: "0", placedPoints: ""};
       this.tableFormArr.controls.forEach(level => {
         Object.entries(level.value).forEach(attribute => {
           switch(attribute[0]){
             case 'stamina':
-              console.log(this.typeEvaluation(attribute));
               stamina += (this.typeEvaluation(attribute)*this.race.skills.stamina);
               this.totalWithRaceBonus.stamina = stamina.toFixed();
               break;
@@ -216,7 +215,6 @@ export class TableComponent implements OnInit {
               this.totalWithRaceBonus.discipline = discipline.toFixed();
               break;
             case 'weaponSkill':
-              //Fixa iordning
               weaponSkill += this.typeEvaluation(attribute)*this.weaponSkillNum;
               this.totalWithRaceBonus.weaponSkill = weaponSkill.toFixed();
               break;
@@ -242,7 +240,8 @@ export class TableComponent implements OnInit {
       return 0;
   }
 
-  private addColumn(obj: any) {
+  //Lägga till validation på placedPoints
+  private addLevel(obj: any) {
     return this.formBuilder.group({
       level: [obj.level],
       stamina: [obj.stamina],
