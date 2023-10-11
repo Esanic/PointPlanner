@@ -82,8 +82,8 @@ export class TableComponent implements OnInit {
 
   private subscribeToEachLevel(){
     this.tableFormArr.controls.forEach(control => {
-      control.valueChanges.pipe(debounceTime(200)).subscribe(change => {
-        this.summarizeEachRow(change, control);
+      control.valueChanges.pipe(debounceTime(200)).subscribe(rowThatChanged => {
+        this.summarizeEachRow(rowThatChanged, control);
         this.totals.forEach(total => {
           this.summarizeEachColumn(total);
         })
@@ -91,15 +91,16 @@ export class TableComponent implements OnInit {
     })
   }
 
-  private summarizeEachRow(change: any, control: AbstractControl){
+  private summarizeEachRow(rowThatChanged: any, control: AbstractControl){
     let total = 0;
 
-    Object.entries(change).forEach(attribute => {
+    Object.entries(rowThatChanged).forEach(attribute => {
       if(attribute[0] !== 'level' && attribute[0] !== 'placedPoints'){
         total += this.typeEvaluation(attribute);
-        control.get('placedPoints')?.setValue(total, {emitevent: false, onlySelf: true});
       }
     })
+    
+    control.patchValue({placedPoints: total}, {emitEvent: false, onlySelf: true});
   }
 
   private summarizeEachColumn(total: any){
@@ -197,7 +198,7 @@ export class TableComponent implements OnInit {
             case 'initiative':
               initiative += (this.typeEvaluation(attribute)*this.race.skills.initiative);
               this.totalWithRaceBonus.initiative = initiative.toFixed();
-              break;
+              break;66
             case 'dodge':
               dodge += (this.typeEvaluation(attribute)*this.race.skills.dodge);
               this.totalWithRaceBonus.dodge = dodge.toFixed();
@@ -307,8 +308,13 @@ export class TableComponent implements OnInit {
     }
   }
 
-  // private decimalFixer(attributeName: ,attribute: number): string{
+  public buttonClick(){
+    let arr: number[] = [];
+    this.tableFormArr.controls.forEach(control => {
+      console.log(control.value);
+      arr.push(control.value);
+    })
 
-  // }
-
+    console.log(JSON.stringify(arr));
+  }
 }
