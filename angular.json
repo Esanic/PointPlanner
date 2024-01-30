@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "PointPlanner:build:production"
+              "buildTarget": "PointPlanner:build:production"
             },
             "development": {
-              "browserTarget": "PointPlanner:build:development"
+              "buildTarget": "PointPlanner:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "PointPlanner:build"
+            "buildTarget": "PointPlanner:build"
           }
         },
         "test": {
