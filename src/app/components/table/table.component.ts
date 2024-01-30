@@ -65,16 +65,9 @@ export class TableComponent implements OnInit {
 
   private addLevels(){
     for(let i = 1; i < this.desiredLevels; i++){
-      if(i === 1){
-        this.character.push({
-          level: i, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, weaponSkill: 0, shield: 0, learningCapacity: 0, luck: 0, discipline: 0, placedPoints: 0
-          }
-        );
-      } else {
-        this.character.push({
-          level: i, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, weaponSkill: 0, shield: 0, learningCapacity: 0, luck: 0, discipline: 0, placedPoints: 0
-        });
-      }
+      this.character.push({
+        level: i, stamina: 0, strength: 0, endurance: 0, initiative: 0, dodge: 0, weaponSkill: 0, shield: 0, learningCapacity: 0, luck: 0, discipline: 0, placedPoints: 0
+      })
     }
   }
 
@@ -245,8 +238,7 @@ export class TableComponent implements OnInit {
     else
       return 0;
   }
-
-  //Lägga till validation på placedPoints
+  
   private addLevel(level: Level) {
     if(level.level === 1){
       return this.formBuilder.group({
@@ -332,11 +324,10 @@ export class TableComponent implements OnInit {
   }
 
   public buttonClick(){
-    let arr: any[] = [];
+    let arrOfLevels: any[] = [];
     this.tableFormArr.controls.forEach(control => {
-      let test = {
-        level: control.value.level,
-        attributes: {
+      let level = {
+          level: control.value.level,
           stamina: control.value.stamina,
           strength: control.value.strength,
           endurance: control.value.endurance,
@@ -347,11 +338,16 @@ export class TableComponent implements OnInit {
           learningCapacity: control.value.learningCapacity,
           luck: control.value.luck,
           discipline: control.value.discipline,
-        }
       }
-      arr.push(test);
+      arrOfLevels.push(level);
     })
-    console.log(arr);
-    console.log(JSON.stringify(arr));
+    
+    const wholeExport = {
+      race: this.race.name,
+      weaponSkill: this.weaponSkill,
+      levels: arrOfLevels
+    }
+
+    console.log(JSON.stringify(wholeExport));
   }
 }

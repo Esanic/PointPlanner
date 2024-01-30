@@ -9,6 +9,7 @@ import { SelectRaceComponent } from './components/select-race/select-race.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlyNumberDirective } from './directives/only-number.directive';
 import { SelectWeaponSkillComponent } from './components/select-weapon-skill/select-weapon-skill.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SelectWeaponSkillComponent } from './components/select-weapon-skill/sel
     SelectRaceComponent,
     OnlyNumberDirective,
     SelectWeaponSkillComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

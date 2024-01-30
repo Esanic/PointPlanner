@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Race } from '../models/race';
-import { CharacterAttributes } from '../models/characterAttributes';
-import { Level } from '../models/level';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
